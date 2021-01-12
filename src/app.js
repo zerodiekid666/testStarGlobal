@@ -1,31 +1,9 @@
-
 import React from "react";
-import {
-  View,
-  Text,
-} from "react-native";
-
-
+import { Touch, Slider } from './components';
 class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentPage: "App",
-    };
-  }
-
-  componentDidMount() {
-
-  }
-
-
   render() {
-    const { currentPage } = this.state;
     return (
-      <View>
-        <Text>currentPage</Text>
-      </View>
+      <Touch />
     );
   }
 }
