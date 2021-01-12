@@ -11,7 +11,7 @@ import {
 import SliderComponent from "./Slider";
 
 const { width, height } = Dimensions.get('screen');
-const fiftyPixel = PixelRatio.getPixelSizeForLayoutSize(50)
+const fiftyPixel = PixelRatio.getPixelSizeForLayoutSize(50);
 
 class Touch extends React.PureComponent {
   constructor(props) {
