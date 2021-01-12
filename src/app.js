@@ -1,5 +1,5 @@
 import React from "react";
-import { Touch, Slider } from './components';
+import { Touch } from './components';
 class App extends React.PureComponent {
   render() {
     return (
