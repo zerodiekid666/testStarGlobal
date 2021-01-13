@@ -7,6 +7,7 @@ import {
   PixelRatio,
   Animated,
   TouchableHighlight,
+  Touchable,
 } from "react-native";
 import SliderComponent from "./Slider";
 
@@ -27,16 +28,19 @@ class Touch extends React.PureComponent {
     const { xCoord, yCoord, duration } = this.state;
     const x = ev.nativeEvent.locationX - fiftyPixel / 2;
     const y = ev.nativeEvent.locationY - fiftyPixel / 2;
-    Animated.timing(xCoord, {
-      duration: duration,
-      toValue: x,
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(yCoord, {
-      duration: duration,
-      toValue: y,
-      useNativeDriver: true,
-    }).start();
+    Animated.parallel([
+      Animated.timing(xCoord, {
+        duration: duration,
+        toValue: x,
+        useNativeDriver: true,
+      }),
+      Animated.timing(yCoord, {
+        duration: duration,
+        toValue: y,
+        useNativeDriver: true,
+      })
+    ]).start();
+
   }
 
 
@@ -55,13 +59,17 @@ class Touch extends React.PureComponent {
         onStartShouldSetResponder={() => true}
         onResponderGrant={this.onTouchEvent.bind(this, "onResponderGrant")}
       >
-        <TouchableHighlight>
-          <Animated.View style={[styles.box, {
-            width: fiftyPixel,
-            height: fiftyPixel, transform: [{ translateX: xCoord }, { translateY: yCoord }]
-          }]} />
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.slider}>
+        <Animated.View 
+        style={[styles.box, {
+          width: fiftyPixel,
+          height: fiftyPixel, transform: [{ translateX: xCoord }, { translateY: yCoord }]
+        }]}
+          pointerEvents="none"/>
+
+        <TouchableHighlight
+          style={styles.slider}
+          pointerEvents="none"
+        >
           <SliderComponent handleGetSliderValue={this.handleGetSliderValue} />
         </TouchableHighlight>
       </View>
@@ -80,6 +88,7 @@ const styles = StyleSheet.create({
   },
   container: {
     position: 'relative',
+    zIndex: 10,
     height: height,
     width: width,
   },
@@ -88,7 +97,8 @@ const styles = StyleSheet.create({
     bottom: 64,
     left: 0,
     flex: 1,
-    width: width
+    width: width,
+    zIndex: 1,
   }
 
 })
